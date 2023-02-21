@@ -1,21 +1,16 @@
-const http = require("http")
-
 const express = require("express")
+const bodyParser = require("body-parser")
 
-const webRoutes = require('./routes/admin.routes')
+const adminRoutes = require('./routes/admin.routes')
+const shopRoutes = require('./routes/shop.routes')
 
 const app = express()
 
-app.use((req, res, next) => {
-    console.log("Added nodeJs middleware")
-    next()
-})
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use((req, res, next) => {
-    console.log("another nodeJs middleware")
-})
+app.use(adminRoutes)
 
-const server = http.createServer(app)
+app.use(shopRoutes)
 
-server.listen(3000)
+app.listen(3000)
 console.log('server running on: http://localhost:3000')
