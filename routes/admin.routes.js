@@ -1,10 +1,11 @@
+const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const routes = express.Router()
-const fs = require('fs')
 
 
 routes.get('/add-product', (req, res) => {
-    res.send('<form action="/add-product" method="POST"><input type="text" name="fullname"><button>submit</button></form>')
+    res.sendFile(path.join(__dirname, '../', 'views', 'add-product.htm'))
 })
 
 routes.post('/add-product', (req, res) => {
