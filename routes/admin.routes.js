@@ -6,16 +6,19 @@ const routes = express.Router()
 const rootDir = require('../utils/path')
 
 
+const products = []
+
+
 routes.get('/add-product', (req, res) => {
     res.sendFile(path.join(rootDir, 'views', 'add-product.htm'))
 })
 
 routes.post('/add-product', (req, res) => {
     const data = req.body
+    products.push({ title: data.title })
     const formData = JSON.stringify(data)
-    console.log(data)
     fs.writeFileSync('./message.txt', formData)
-    res.send(`Form data: ${formData}`)
+    res.redirect('/')
 })
 
 routes.use('/admin', (req, res, next) => {
@@ -23,4 +26,4 @@ routes.use('/admin', (req, res, next) => {
     // next()
 })
 
-module.exports = routes
+module.exports = { routes, products }
