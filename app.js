@@ -2,13 +2,13 @@ const bodyParser = require("body-parser")
 const path = require("path")
 
 const express = require("express")
+const app = express()
 
 const adminRoutes = require('./routes/admin.routes')
 const shopRoutes = require('./routes/shop.routes')
 
 const sharedControllers = require('./controllers/shared.controllers')
 
-const app = express()
 app.listen(3000)
 console.log('server running on: http://localhost:3000')
 

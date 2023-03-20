@@ -9,7 +9,10 @@ exports.getAddProduct = (req, res) => {
 }
 
 exports.postAddProduct = (req, res) => {
-    const product = new Product(req.body.title)
+    const title = req.body.title,
+        description = req.body.description,
+        price = req.body.price
+    const product = new Product(title, description, price)
     product.save()
     // const formData = JSON.stringify(data)
     // fs.writeFileSync('./message.txt', formData)
@@ -17,7 +20,15 @@ exports.postAddProduct = (req, res) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    const products = Product.fetchAll()
-    // console.log('Shop: ', products)
-    res.send(products)
+    const products = Product.fetchAll(products => res.send(products))
+    // console.log('Shop: ', products)  
+}
+
+exports.getProductDetail = (req, res) => {
+    const productId = req.params.id
+    Product.findById(productId, product => {
+        if (product) { res.send(product) } else {
+            res.send("Product does not exist.")
+        }
+    })
 }
